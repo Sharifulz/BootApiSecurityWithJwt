@@ -32,10 +32,11 @@ public class Controller {
     public String index(){
         return "Api is Working.";
     }
-    @PostMapping("/login")
+    @SuppressWarnings("rawtypes")
+	@PostMapping("/login")
     public ResponseEntity authenticate(@RequestBody JwtRequest jwtRequest){
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getPassword(),jwtRequest.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(jwtRequest.getUserName(),jwtRequest.getPassword()));
         }catch (BadCredentialsException e){
             throw e;
         }
@@ -43,4 +44,28 @@ public class Controller {
         String token=jwtUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token, new Date()));
     }
+    
+    /*
+    {
+    	"userName":"ert",
+    	"password":"789"
+    }
+    */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
