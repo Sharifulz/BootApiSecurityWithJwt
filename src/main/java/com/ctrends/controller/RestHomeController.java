@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @RestController
-public class Controller {
+public class RestHomeController {
 	
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -28,10 +28,9 @@ public class Controller {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @GetMapping("/")
-    public String index(){
-        return "Api is Working.";
-    }
+	/*
+	 * @GetMapping("/") public String index(){ return "Api is Working."; }
+	 */
     @SuppressWarnings("rawtypes")
 	@PostMapping("/login")
     public ResponseEntity authenticate(@RequestBody JwtRequest jwtRequest){
