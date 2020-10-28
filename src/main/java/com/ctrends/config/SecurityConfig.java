@@ -3,7 +3,6 @@ package com.ctrends.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	 private MyUserDetailService myUserDetailService;
 
 	 @Autowired
-	 private JwtFilters jwtFilters;
+	 private JwtRequestFilter jwtFilters;
 	 
 	 @Override
      public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -35,10 +34,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	                .authorizeRequests()
 	                .antMatchers("/admin").hasRole("ADMIN")
 	    			.antMatchers("/user").hasAnyRole("ADMIN", "USER")
-	    			.antMatchers("/").permitAll()
+	    			.antMatchers("/login").permitAll()
 	    			.anyRequest()
 	                .authenticated()
-	                .and()
+	              .and()
+	    	        .logout()
+	    	        .invalidateHttpSession(true)
+	    	        .clearAuthentication(true)
+	    	        .logoutSuccessUrl("/")
+	    	        .permitAll()
+	              .and()
 	                .sessionManagement()
 	                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	        http.addFilterBefore(jwtFilters, UsernamePasswordAuthenticationFilter.class);

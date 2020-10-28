@@ -1,34 +1,31 @@
 package com.ctrends.model;
 
-import java.util.Date;
-
 public class JwtResponse {
 	
-	public String token;
-    public Date expireDate;
-    
-	public JwtResponse(String token,Date date){
-        this.token=token;
-        this.expireDate=date;
-    }
-    public JwtResponse(String token){
-        this.token=token;
-    }
-    public String getToken() {
-        return token;
-    }
+public String token;
+	
+	public String date;
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+	public String getToken() {
+		return token;
+	}
 
-    public Date getExpireDate() {
-        return expireDate;
-    }
+	public void setToken(String token) {
+		this.token = token;
+	}
 
-    public void setExpireDate(Date expireDate) {
-        expireDate = expireDate;
-    }
+	public String getDate() {
+		return date;
+	}
 
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	public JwtResponse(String token, String date) {
+		super();
+		this.token = token;
+		this.date = date;
+	}
     
 }
